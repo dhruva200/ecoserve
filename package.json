@@ -1,0 +1,36 @@
+{
+  "name": "ecoserve-platform",
+  "version": "1.0.0",
+  "description": "EcoServe: AI-Driven Institutional Food Waste & NGO Redistribution Platform",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgGreen.bold,bgCyan.bold\" \"node --watch backend/server.js\" \"vite --force --host 0.0.0.0 --port 5173\"",
+    "start": "node backend/server.js",
+    "server": "node backend/server.js",
+    "client": "vite --force --host 0.0.0.0 --port 5173",
+    "iot-sim": "node backend/iot-simulator.js",
+    "iot-spike": "node backend/iot-simulator.js --spike",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5173"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "lucide-react": "^0.454.0",
+    "pg": "^8.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.0.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.8"
+  }
+}

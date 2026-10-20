@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: ecoserve-network
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
