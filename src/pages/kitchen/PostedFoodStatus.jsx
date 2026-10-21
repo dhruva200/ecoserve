@@ -172,19 +172,19 @@ export default function PostedFoodStatus({ currentUser, batches, fetchData }) {
                       Auto-Fill OTP ({batch.pickup_otp || '4829'})
                     </button>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       maxLength={4}
                       placeholder="Enter 4-digit OTP"
                       value={currentOtpVal}
                       onChange={(e) => handleOtpChange(batch.id, e.target.value)}
-                      className="w-36 border border-emerald-300 rounded-lg px-3 py-1.5 text-xs font-bold tracking-widest text-center bg-white"
+                      className="w-full sm:w-36 border border-emerald-300 rounded-lg px-3 py-1.5 text-xs font-bold tracking-widest text-center bg-white"
                     />
                     <button
                       type="button"
                       onClick={() => handleVerifyPickup(batch)}
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-1.5 px-3 rounded-lg transition"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2 sm:py-1.5 px-3 rounded-lg transition"
                     >
                       ✅ Verify & Complete Delivery
                     </button>

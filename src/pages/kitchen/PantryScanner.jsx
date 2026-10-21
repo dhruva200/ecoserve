@@ -29,7 +29,9 @@ export default function PantryScanner({
   const startCamera = async () => {
     setScanError('');
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' } },
+      });
       streamRef.current = stream;
       setCameraActive(true);
     } catch {
@@ -173,7 +175,7 @@ export default function PantryScanner({
 
         {scanningImage && (
           <div className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
-            ⏳ Analyzing image and detecting ingredients...
+            ⏳ Analyzing image pixels with Google Gemini Vision AI...
           </div>
         )}
         {scanError && (
@@ -227,7 +229,7 @@ export default function PantryScanner({
           myPantryItems.map((item) => (
             <div
               key={item.id}
-              className="p-3.5 rounded-xl border border-slate-200 flex items-center justify-between gap-3"
+              className="p-3.5 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
             >
               <div>
                 <div className="font-bold text-sm">
@@ -238,16 +240,16 @@ export default function PantryScanner({
                   {item.days_left ?? item.expiry_days}d left)
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-end gap-2 shrink-0">
                 <button
                   onClick={() => handleMovePantryToSurplus(item.id)}
                   className="text-xs bg-emerald-600 text-white px-3 py-1.5 rounded-lg font-semibold"
                 >
-                  ♻️ Donate to Surplus
+                  ♻️ Send to NGOs
                 </button>
                 <button
                   onClick={() => handleDeletePantryItem(item.id)}
-                  className="text-xs text-slate-400 hover:text-red-600"
+                  className="text-xs text-slate-400 hover:text-red-600 p-1"
                 >
                   🗑️
                 </button>

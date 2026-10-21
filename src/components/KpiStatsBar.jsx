@@ -9,28 +9,40 @@ export default function KpiStatsBar({
   const isHighTemp = Number(latestTemp) > 7.0;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <div className="bg-white p-4 rounded-xl border border-slate-200">
-        <div className="text-xs text-slate-400 font-bold uppercase">Pantry Items</div>
-        <div className="text-2xl font-extrabold mt-1">{pantryCount} Ingredients</div>
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+      <div className="bg-white p-3 sm:p-4 rounded-xl border border-slate-200">
+        <div className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase">
+          Pantry Items
+        </div>
+        <div className="text-lg sm:text-2xl font-extrabold mt-1">
+          {pantryCount} Ingredients
+        </div>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-slate-200">
-        <div className="text-xs text-slate-400 font-bold uppercase">Available Meals</div>
-        <div className="text-2xl font-extrabold text-emerald-600 mt-1">
+      <div className="bg-white p-3 sm:p-4 rounded-xl border border-slate-200">
+        <div className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase">
+          Available Meals
+        </div>
+        <div className="text-lg sm:text-2xl font-extrabold text-emerald-600 mt-1">
           {availableMeals} Meals
         </div>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-slate-200">
-        <div className="text-xs text-slate-400 font-bold uppercase">CO₂e Saved</div>
-        <div className="text-2xl font-extrabold mt-1">{totalCo2} kg CO₂e</div>
+      <div className="bg-white p-3 sm:p-4 rounded-xl border border-slate-200">
+        <div className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase">
+          CO₂e Saved
+        </div>
+        <div className="text-lg sm:text-2xl font-extrabold mt-1">
+          {totalCo2} kg CO₂e
+        </div>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-slate-200">
-        <div className="text-xs text-slate-400 font-bold uppercase">Freezer Temp</div>
+      <div className="bg-white p-3 sm:p-4 rounded-xl border border-slate-200">
+        <div className="text-[11px] sm:text-xs text-slate-400 font-bold uppercase">
+          Freezer Temp
+        </div>
         <div
-          className={`text-2xl font-extrabold mt-1 ${
+          className={`text-lg sm:text-2xl font-extrabold mt-1 ${
             isHighTemp ? 'text-red-600' : 'text-blue-600'
           }`}
         >

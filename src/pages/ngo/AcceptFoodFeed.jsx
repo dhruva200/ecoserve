@@ -66,8 +66,8 @@ export default function AcceptFoodFeed({ currentUser, batches, fetchData }) {
           )}
 
           {/* Bottom Bar */}
-          <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-between pt-3 border-t border-slate-100 gap-2">
+            <div className="flex flex-wrap items-center gap-3">
               <span className="text-xs font-semibold text-emerald-700">
                 🌱 Saves {batch.co2_saved_kg} kg CO₂e
               </span>
@@ -96,7 +96,7 @@ export default function AcceptFoodFeed({ currentUser, batches, fetchData }) {
             {batch.status === 'Available' && (
               <button
                 onClick={() => handleClaimBatch(batch.id)}
-                className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl"
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-xl"
               >
                 🤝 Accept Food Batch
               </button>

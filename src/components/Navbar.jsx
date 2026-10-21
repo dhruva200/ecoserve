@@ -15,7 +15,7 @@ export default function Navbar({
     () => localStorage.getItem('ecoserve_gemini_key') || ''
   );
   const [testingKey, setTestingKey] = useState(false);
-  const [testResult, setTestResult] = useState(null); // { ok: boolean, message: string }
+  const [testResult, setTestResult] = useState(null);
 
   const isKitchen = currentUser.role === 'kitchen';
 
@@ -79,59 +79,85 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 shrink-0">
-          <span className="text-xl">{isKitchen ? '👨‍🍳' : '🤝'}</span>
-          <div>
-            <div className="font-extrabold text-slate-900 text-sm sm:text-base">
-              EcoServe
+      <div className="max-w-6xl mx-auto px-3 sm:px-4">
+        {/* Top Row: Brand Logo + Desktop Nav + Action Buttons */}
+        <div className="min-h-[3.75rem] py-2 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 min-w-0">
+            <span className="text-xl shrink-0">{isKitchen ? '👨‍🍳' : '🤝'}</span>
+            <div className="min-w-0">
+              <div className="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">
+                EcoServe
+              </div>
+              <div className="text-[11px] text-slate-500 truncate max-w-[120px] sm:max-w-[200px]">
+                {currentUser.name}
+              </div>
             </div>
-            <div className="text-[11px] text-slate-500">{currentUser.name}</div>
+          </div>
+
+          {/* Desktop Navigation Tabs (Visible on lg screens and above) */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {tabsToShow.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(t.id)}
+                className={`px-3 py-2 rounded-xl text-xs xl:text-sm font-semibold whitespace-nowrap transition ${
+                  activeTab === t.id
+                    ? isKitchen
+                      ? 'bg-emerald-600 text-white shadow-sm'
+                      : 'bg-blue-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:bg-slate-100'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* Right Action Buttons (Compact on Mobile, Full on Desktop) */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <button
+              onClick={onDownloadCertificate}
+              className="px-2 sm:px-2.5 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-[11px] sm:text-xs font-semibold hover:bg-emerald-100"
+            >
+              📄 <span className="hidden sm:inline">ESG </span>PDF
+            </button>
+            <button
+              onClick={() => setShowSettings(!showSettings)}
+              className={`px-2 sm:px-2.5 py-1.5 rounded-xl border text-[11px] sm:text-xs font-semibold transition ${
+                hasGeminiKey
+                  ? 'border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
+                  : 'border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100'
+              }`}
+            >
+              {hasGeminiKey ? '🟢 AI Key' : '⚠️ AI Key'}
+            </button>
+            <button
+              onClick={onLogout}
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-900 text-white text-[11px] sm:text-xs font-bold hover:bg-slate-800"
+            >
+              🔁 Logout<span className="hidden md:inline"> / Switch Role</span>
+            </button>
           </div>
         </div>
 
-        <nav className="flex items-center gap-1 overflow-x-auto">
+        {/* Mobile & Tablet Feature Navigation Grid (100% Visible on All Phones & Tablets!) */}
+        <nav className="grid grid-cols-2 sm:grid-cols-4 lg:hidden gap-1.5 pb-2.5 pt-1 border-t border-slate-100">
           {tabsToShow.map((t) => (
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition ${
+              className={`px-2.5 py-2 rounded-xl text-xs font-bold text-center truncate transition ${
                 activeTab === t.id
                   ? isKitchen
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-blue-600 text-white'
-                  : 'text-slate-600 hover:bg-slate-100'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
             >
               {t.label}
             </button>
           ))}
         </nav>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={onDownloadCertificate}
-            className="px-2.5 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs font-semibold hover:bg-emerald-100"
-          >
-            📄 ESG PDF
-          </button>
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            className={`px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition ${
-              hasGeminiKey
-                ? 'border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
-                : 'border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100'
-            }`}
-          >
-            {hasGeminiKey ? '🟢 AI Key Ready' : '⚠️ Set AI Key'}
-          </button>
-          <button
-            onClick={onLogout}
-            className="px-3 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800"
-          >
-            🔁 Logout / Switch Role
-          </button>
-        </div>
       </div>
 
       {showSettings && (
@@ -153,20 +179,20 @@ export default function Navbar({
 
             <form
               onSubmit={handleSaveAndTestKey}
-              className="flex flex-wrap items-center gap-2 text-xs"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-xs"
             >
-              <span>🔑 Gemini API Key:</span>
+              <span className="font-semibold">🔑 Gemini API Key:</span>
               <input
                 type="password"
                 value={geminiKeyInput}
                 onChange={(e) => setGeminiKeyInput(e.target.value)}
                 placeholder="Paste AIzaSy... key (or leave blank to test .env key)"
-                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-white flex-1"
+                className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white flex-1"
               />
               <button
                 type="submit"
                 disabled={testingKey}
-                className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-1.5 rounded-lg"
+                className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-lg shrink-0"
               >
                 {testingKey ? 'Testing Gemini...' : '🧪 Save & Test Gemini AI'}
               </button>
