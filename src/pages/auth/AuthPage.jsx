@@ -5,9 +5,9 @@ import SignupForm from './SignupForm.jsx';
 export default function AuthPage({ onAuthSuccess }) {
   const [authMode, setAuthMode] = useState('login'); // 'login' | 'signup'
   const [loginRole, setLoginRole] = useState('kitchen'); // 'kitchen' | 'ngo'
-  const [loginName, setLoginName] = useState('Govindas kitchen');
-  const [loginEmail, setLoginEmail] = useState('kitchen@govindas.in');
-  const [loginPassword, setLoginPassword] = useState('123456');
+  const [loginName, setLoginName] = useState('');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
 
   // Google Sign-In State
   const [googleClientId, setGoogleClientId] = useState(
@@ -39,15 +39,10 @@ export default function AuthPage({ onAuthSuccess }) {
   const selectRole = (role) => {
     setLoginRole(role);
     setGoogleError('');
-    if (role === 'kitchen') {
-      setLoginName('Govindas kitchen');
-      setLoginEmail('kitchen@govindas.in');
-      setLoginPassword('123456');
-    } else {
-      setLoginName('Adi-Yuva Foundation');
-      setLoginEmail('ngo@ecoserve.in');
-      setLoginPassword('123456');
-    }
+    // Clear fields when switching role (no demo credentials)
+    setLoginName('');
+    setLoginEmail('');
+    setLoginPassword('');
   };
 
   // Triggered if GOOGLE_CLIENT_ID is set in .env and Google's popup returns an access_token
